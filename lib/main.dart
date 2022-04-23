@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_bar/widgets/auth/auth_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(backgroundColor: Color.fromRGBO(3, 37, 65, 1)),
       ),
-      home: const Text('Start'),
+      home: const AuthWidget(),
     );
   }
 }
