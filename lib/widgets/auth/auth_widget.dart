@@ -77,6 +77,25 @@ class _FormWidget extends StatefulWidget {
 }
 
 class _FormWidgetState extends State<_FormWidget> {
+  final _loginTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+  String? errorText;
+
+  void _auth() {
+    final login = _loginTextController.text;
+    final password = _passwordTextController.text;
+    if (login == 'admin' && password == 'admin') {
+      errorText = null;
+    } else {
+      errorText = 'Incorrect login or password';
+    }
+    setState(() {});
+  }
+
+  void _resetPassword() {
+    print('reset password');
+  }
+
   @override
   Widget build(BuildContext context) {
     const textStyle = TextStyle(
@@ -88,6 +107,7 @@ class _FormWidgetState extends State<_FormWidget> {
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       isCollapsed: true,
     );
+    final errorText = this.errorText;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -96,7 +116,8 @@ class _FormWidgetState extends State<_FormWidget> {
           style: textStyle,
         ),
         const SizedBox(height: 5),
-        const TextField(
+        TextField(
+          controller: _loginTextController,
           decoration: textFieldDecorator,
         ),
         const SizedBox(height: 20),
@@ -105,10 +126,20 @@ class _FormWidgetState extends State<_FormWidget> {
           style: textStyle,
         ),
         const SizedBox(height: 5),
-        const TextField(
+        TextField(
+          controller: _passwordTextController,
           decoration: textFieldDecorator,
           obscureText: true,
         ),
+        const SizedBox(height: 10),
+        if (errorText != null)
+          Text(
+            errorText,
+            style: const TextStyle(
+              fontSize: 17,
+              color: Colors.red,
+            ),
+          ),
         const SizedBox(height: 25),
         Row(
           children: [
@@ -126,13 +157,13 @@ class _FormWidgetState extends State<_FormWidget> {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: _auth,
               child: const Text('Login'),
             ),
             const SizedBox(width: 30),
             TextButton(
               style: AppButtonStyle.linkButton,
-              onPressed: () {},
+              onPressed: _resetPassword,
               child: const Text('Reset password'),
             ),
           ],
