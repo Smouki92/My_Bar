@@ -77,15 +77,18 @@ class _FormWidget extends StatefulWidget {
 }
 
 class _FormWidgetState extends State<_FormWidget> {
-  final _loginTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final _loginTextController = TextEditingController(text: 'admin');
+  final _passwordTextController = TextEditingController(text: 'admin');
   String? errorText;
 
   void _auth() {
     final login = _loginTextController.text;
     final password = _passwordTextController.text;
+
     if (login == 'admin' && password == 'admin') {
       errorText = null;
+    Navigator.of(context).pushReplacementNamed('/main_screen');
+
     } else {
       errorText = 'Incorrect login or password';
     }
@@ -93,7 +96,7 @@ class _FormWidgetState extends State<_FormWidget> {
   }
 
   void _resetPassword() {
-    print('reset password');
+  //  print('reset password');
   }
 
   @override
