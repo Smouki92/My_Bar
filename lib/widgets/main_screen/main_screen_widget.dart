@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_bar/widgets/cocktails_list/cocktails_list_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -10,9 +11,7 @@ class MainScreenWidget extends StatefulWidget {
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Cocktaols',
-    ),
+        CocktailsListWidget(),
     Text(
       'My drinks',
     ),
@@ -31,10 +30,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  _widgetOptions[_selectedTab],
-        centerTitle: true,
-      ),
       body: Center(
         child: _widgetOptions[_selectedTab],
       ),
@@ -43,7 +38,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.format_list_bulleted),
-            label: 'Cocktaols',
+            label: 'Cocktails',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_bar_sharp),
