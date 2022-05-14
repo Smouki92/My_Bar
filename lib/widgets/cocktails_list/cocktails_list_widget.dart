@@ -24,7 +24,13 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
       cocktails = mapper.mapCocktailList(value);
       setState(() {});
     });
+  }
 
+  void _onPressedCocktail(String? id) {
+    Navigator.of(context).pushNamed(
+      '/main_screen/cocktail_details',
+      arguments: id,
+    );
   }
 
   @override
@@ -43,11 +49,11 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               controller: _searchController,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Search',
                 filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(),
+                fillColor: Colors.white.withAlpha(235),
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
@@ -83,7 +89,7 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
             ],
           ),
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: () => _onPressedCocktail(cocktail?.id),
             child: Row(
               children: [
                 Container(
@@ -105,31 +111,3 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
         ),
       );
 }
-
-/*
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 8,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                  image: DecorationImage(
-                    image: image,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-
-                                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black.withOpacity(0.2)),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 8,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                
-
- */

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_bar/widgets/auth/auth_widget.dart';
+import 'package:my_bar/widgets/cocktail_details/cocktail_details_widget.dart';
 import 'package:my_bar/widgets/main_screen/main_screen_widget.dart';
 
 void main() {
@@ -17,15 +18,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme:
             const AppBarTheme(backgroundColor: Color.fromRGBO(3, 37, 65, 1)),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color.fromRGBO(3, 37, 65, 1),
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.grey,
         ),
       ),
       routes: {
-        '/auth_screen': (context) => AuthWidget(),
-        '/main_screen': (context) => MainScreenWidget(),
+        '/auth_screen': (context) => const AuthWidget(),
+        '/main_screen': (context) => const MainScreenWidget(),
+        '/main_screen/cocktail_details': (context)  {
+        final cocktailId = ModalRoute.of(context)?.settings.arguments as String;
+         return CocktailsDetailsWidget(id: cocktailId);
+          },
       },
       initialRoute: '/auth_screen',
     );
