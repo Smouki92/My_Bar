@@ -14,14 +14,29 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
   final client = NetworkClient();
   final mapper = CocktailMapper();
   List<Cocktail>? cocktails;
+  List<Cocktail>? filteredCocktails;
 
   final _searchController = TextEditingController();
+
+  void _searchCocktails() {
+    final query = _searchController.text;
+    if (query.isNotEmpty) {
+      filteredCocktails = cocktails?.where((Cocktail cocktail) {
+        return cocktail.name.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    } else {
+      filteredCocktails = cocktails;
+    }
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
     client.getData().then((value) {
       cocktails = mapper.mapCocktailList(value);
+      filteredCocktails = cocktails;
+      _searchController.addListener(_searchCocktails);
       setState(() {});
     });
   }
@@ -39,6 +54,14 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
       appBar: AppBar(
         title: const Text('Cocktails'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              print('test');
+            },
+          )
+        ],
       ),
       body: Stack(
         children: [
@@ -49,7 +72,7 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               controller: _searchController,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Search',
                 filled: true,
                 fillColor: Colors.white.withAlpha(235),
@@ -65,11 +88,11 @@ class _CocktailsListWidgetState extends State<CocktailsListWidget> {
   Widget loading() => const CircularProgressIndicator();
 
   Widget content() => ListView.builder(
-        padding: const EdgeInsets.only(top: 75),
+        padding:  const EdgeInsets.only(top: 75),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        itemCount: cocktails?.length,
+        itemCount: filteredCocktails?.length,
         itemBuilder: (BuildContext context, int index) {
-          return element(cocktails?[index]);
+          return element(filteredCocktails?[index]);
         },
       );
 

@@ -16,8 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme:
-            const AppBarTheme(backgroundColor: Color.fromRGBO(3, 37, 65, 1)),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromRGBO(3, 37, 65, 1),
+        ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Color.fromRGBO(3, 37, 65, 1),
           selectedItemColor: Colors.white,
@@ -27,10 +28,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/auth_screen': (context) => const AuthWidget(),
         '/main_screen': (context) => const MainScreenWidget(),
-        '/main_screen/cocktail_details': (context)  {
-        final cocktailId = ModalRoute.of(context)?.settings.arguments as String;
-         return CocktailsDetailsWidget(id: cocktailId);
-          },
+        '/main_screen/cocktail_details': (context) {
+          final cocktailId =
+              ModalRoute.of(context)?.settings.arguments as String;
+          return CocktailsDetailsWidget(id: cocktailId);
+        },
       },
       initialRoute: '/auth_screen',
     );

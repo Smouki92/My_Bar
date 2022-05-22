@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:my_bar/models/cocktails.dart';
 
-
 class CocktailMapper {
   Cocktail mapCocktailModel(Map<String, dynamic> json) {
     final id = json['idDrink'];
